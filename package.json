@@ -25,20 +25,20 @@
     "node": "^12.0.0 || >=14.0.0"
   },
   "dependencies": {
-    "nanoevents": "^5.1.11"
+    "nanoevents": "^5.1.12"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.16",
-    "@logux/eslint-config": "^44.1.2",
+    "@babel/core": "^7.13.8",
+    "@logux/eslint-config": "^45.1.0",
     "@logux/sharec-config": "^0.8.5",
     "@types/ws": "^7.4.0",
-    "@typescript-eslint/eslint-plugin": "^4.15.1",
-    "@typescript-eslint/parser": "^4.15.1",
+    "@typescript-eslint/eslint-plugin": "^4.16.1",
+    "@typescript-eslint/parser": "^4.16.1",
     "check-dts": "^0.4.4",
-    "eslint": "^7.20.0",
+    "eslint": "^7.21.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jest": "^24.1.5",
+    "eslint-plugin-jest": "^24.1.9",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prefer-let": "^1.1.0",
     "eslint-plugin-prettierx": "^0.17.1",
@@ -51,8 +51,8 @@
     "nanodelay": "^1.0.6",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.0.0-next.4",
-    "typescript": "^4.1.5",
-    "ws": "^7.4.3",
+    "typescript": "^4.2.3",
+    "ws": "^7.4.4",
     "yaspeller": "^7.0.0"
   },
   "husky": {

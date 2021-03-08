@@ -8,8 +8,12 @@ import {
   NodeOptions,
   NodeState
 } from '../index.js'
+import { TestLog } from '../test-log/index.js'
 
-function createNode (opts?: NodeOptions, pair = new TestPair()) {
+function createNode (
+  opts?: NodeOptions,
+  pair = new TestPair()
+): BaseNode<{}, TestLog> {
   let log = TestTime.getLog()
   log.on('preadd', (action, meta) => {
     meta.reasons = ['test']
@@ -17,7 +21,7 @@ function createNode (opts?: NodeOptions, pair = new TestPair()) {
   return new BaseNode('client', log, pair.left, opts)
 }
 
-async function createTest () {
+async function createTest (): Promise<TestPair> {
   let pair = new TestPair()
   let node = createNode({}, pair)
   pair.leftNode = node
@@ -29,11 +33,11 @@ function privateMethods (obj: object): any {
   return obj
 }
 
-function emit (obj: any, event: string, ...args: any) {
+function emit (obj: any, event: string, ...args: any): void {
   obj.emitter.emit(event, ...args)
 }
 
-function listeners (obj: any) {
+function listeners (obj: any): number {
   let count = 0
   for (let i in obj.emitter.events) {
     count += obj.emitter.events[i]?.length ?? 0

@@ -10,7 +10,7 @@ function privateMethods (obj: object): any {
   return obj
 }
 
-async function createTestPair () {
+async function createTestPair (): Promise<TestPair> {
   let pair = new TestPair()
   node = new ServerNode<{}, TestLog>('server', TestTime.getLog(), pair.left)
   pair.leftNode = node

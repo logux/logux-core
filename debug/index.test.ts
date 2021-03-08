@@ -2,7 +2,7 @@ import { ServerNode, TestTime, TestPair, TestLog } from '../index.js'
 
 let node: ServerNode<{}, TestLog>
 
-async function createTest () {
+async function createTest (): Promise<TestPair> {
   let test = new TestPair()
   node = new ServerNode('server', TestTime.getLog(), test.left)
   test.leftNode = node

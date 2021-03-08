@@ -15,10 +15,10 @@ declare global {
 
 let listeners: { [key: string]: () => void } = {}
 const listenerMethods = {
-  addEventListener (name: string, callback: () => void) {
+  addEventListener (name: string, callback: () => void): void {
     listeners[name] = callback
   },
-  removeEventListener (name: string, callback: () => void) {
+  removeEventListener (name: string, callback: () => void): void {
     if (listeners[name] === callback) {
       delete listeners[name]
     }
@@ -271,7 +271,7 @@ it('has dynamic delay', () => {
     maxDelay: 5000
   })
 
-  function attemptsIsAround (attempt: number, ms: number) {
+  function attemptsIsAround (attempt: number, ms: number): void {
     recon.attempts = attempt
     let time = privateMethods(recon).nextDelay()
     expect(Math.abs(time - ms)).toBeLessThan(1000)
@@ -282,7 +282,7 @@ it('has dynamic delay', () => {
   attemptsIsAround(2, 4500)
   attemptsIsAround(3, 5000)
 
-  function attemptsIs (attempt: number, ms: number) {
+  function attemptsIs (attempt: number, ms: number): void {
     recon.attempts = attempt
     let time = privateMethods(recon).nextDelay()
     expect(time).toEqual(ms)

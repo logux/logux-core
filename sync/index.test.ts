@@ -13,7 +13,7 @@ function privateMethods (obj: object): any {
   return obj
 }
 
-function createPair () {
+function createPair (): TestPair {
   let time = new TestTime()
   let log1 = time.nextLog()
   let log2 = time.nextLog()
@@ -34,7 +34,9 @@ function createPair () {
   return test
 }
 
-async function createTest (before?: (test: TestPair) => void) {
+async function createTest (
+  before?: (test: TestPair) => void
+): Promise<TestPair> {
   let test = createPair()
   before?.(test)
   test.left.connect()

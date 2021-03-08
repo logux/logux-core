@@ -26,11 +26,11 @@ class FakeWebSocket {
     }, 1)
   }
 
-  send (msg: string) {
+  send (msg: string): void {
     this.sent.push(msg)
   }
 
-  emit (name: string, data?: string | Error) {
+  emit (name: string, data?: string | Error): void {
     if (name === 'open') {
       if (typeof this.onopen === 'undefined') {
         throw new Error(`No ${name} event listener`)
@@ -56,7 +56,7 @@ class FakeWebSocket {
     }
   }
 
-  close () {
+  close (): void {
     this.emit('close')
   }
 }
@@ -77,7 +77,11 @@ function privateMethods (obj: object): any {
   return obj
 }
 
-function emit (ws: WebSocket | undefined, name: string, data?: string | Error) {
+function emit (
+  ws: WebSocket | undefined,
+  name: string,
+  data?: string | Error
+): void {
   if (typeof ws === 'undefined') {
     throw new Error('WebSocket was not created')
   }

@@ -5,7 +5,7 @@ function catchError<T extends keyof LoguxErrorOptions> (
   type: T,
   opts?: LoguxErrorOptions[T],
   received?: boolean
-) {
+): LoguxError {
   let error
   try {
     throw new LoguxError(type, opts, received)

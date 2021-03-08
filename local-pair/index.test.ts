@@ -42,7 +42,7 @@ class Tracker {
     this.right = track(this, this.pair.right)
   }
 
-  wait () {
+  wait (): Promise<void> {
     return new Promise<void>(resolve => {
       this.waiting = () => {
         delete this.waiting

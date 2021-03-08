@@ -6,7 +6,7 @@ function privateMethods (obj: object): any {
   return obj
 }
 
-function prepareWs () {
+function prepareWs (): WebSocket {
   let ws = new WebSocket('ws://example.com/')
   privateMethods(ws)._readyState = ws.OPEN
   return ws

@@ -20,7 +20,7 @@ function privateMethods (obj: object): any {
   return obj
 }
 
-async function createTest (opts: NodeOptions) {
+async function createTest (opts: NodeOptions): Promise<TestPair> {
   let log = TestTime.getLog()
   let test = new TestPair()
   await log.add({ type: 'test' }, { reasons: ['test'] })

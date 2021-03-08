@@ -22,7 +22,7 @@ function privateMethods (obj: object): any {
   return obj
 }
 
-function createTest () {
+function createTest (): TestPair {
   let time = new TestTime()
   let pair = new TestPair()
 

@@ -18,11 +18,11 @@ afterEach(() => {
   test.rightNode.destroy()
 })
 
-function privateMethods (obj: object): any {
+function privateMethods(obj: object): any {
   return obj
 }
 
-function createTest (): TestPair {
+function createTest(): TestPair {
   let time = new TestTime()
   let pair = new TestPair()
 
@@ -245,7 +245,7 @@ it('generates credentials in connected', async () => {
 it('denies access for wrong users', async () => {
   test = createTest()
   test.rightNode.options = {
-    async auth () {
+    async auth() {
       return false
     }
   }
@@ -259,7 +259,7 @@ it('denies access for wrong users', async () => {
 it('denies access to wrong server', async () => {
   test = createTest()
   test.leftNode.options = {
-    async auth () {
+    async auth() {
       return false
     }
   }
@@ -278,7 +278,7 @@ it('allows access for right users', async () => {
   test = createTest()
   test.leftNode.options = { token: 'a' }
   test.rightNode.options = {
-    async auth (nodeId, token) {
+    async auth(nodeId, token) {
       await delay(10)
       return token === 'a' && nodeId === 'client'
     }
@@ -339,7 +339,7 @@ it('catches authentication errors', async () => {
 
   let error = new Error()
   test.rightNode.options = {
-    async auth () {
+    async auth() {
       throw error
     }
   }
@@ -355,7 +355,7 @@ it('catches authentication errors', async () => {
 it('sends authentication errors', async () => {
   test = createTest()
   test.rightNode.options = {
-    async auth () {
+    async auth() {
       throw new LoguxError('bruteforce')
     }
   }
@@ -417,7 +417,7 @@ it('allows access only with headers', async () => {
   let authHeaders: object | undefined
   test.leftNode.options = { token: 'a' }
   test.rightNode.options = {
-    async auth (nodeId, token, headers) {
+    async auth(nodeId, token, headers) {
       authHeaders = headers
       return true
     }

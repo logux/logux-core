@@ -1,7 +1,7 @@
 import { LoguxErrorOptions } from './index.js'
 import { LoguxError } from '../index.js'
 
-function catchError<T extends keyof LoguxErrorOptions> (
+function catchError<T extends keyof LoguxErrorOptions>(
   type: T,
   opts?: LoguxErrorOptions[T],
   received?: boolean

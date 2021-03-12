@@ -17,7 +17,7 @@ interface ActionIterator<M extends Meta> {
   (action: Action, meta: M): boolean | void
 }
 
-export function actionEvents (
+export function actionEvents(
   emitter: Emitter,
   event: 'preadd' | 'add' | 'clean',
   action: Action,
@@ -150,7 +150,7 @@ export abstract class LogStore {
    * @returns Promise with `meta` for new action or `false` if action with
    *          same `meta.id` was already in store.
    */
-  add (action: AnyAction, meta: Meta): Promise<Meta | false>
+  add(action: AnyAction, meta: Meta): Promise<Meta | false>
 
   /**
    * Return a Promise with first page. Page object has `entries` property
@@ -163,7 +163,7 @@ export abstract class LogStore {
    * @param opts Query options.
    * @returns Promise with first page.
    */
-  get (opts?: GetOptions): Promise<Page>
+  get(opts?: GetOptions): Promise<Page>
 
   /**
    * Remove action from store.
@@ -171,7 +171,7 @@ export abstract class LogStore {
    * @param id Action ID.
    * @returns Promise with entry if action was in store.
    */
-  remove (id: ID): Promise<[Action, Meta] | false>
+  remove(id: ID): Promise<[Action, Meta] | false>
 
   /**
    * Change action metadata.
@@ -181,7 +181,7 @@ export abstract class LogStore {
    * @returns Promise with `true` if metadata was changed or `false`
    *          on unknown ID.
    */
-  changeMeta (id: ID, diff: Partial<Meta>): Promise<boolean>
+  changeMeta(id: ID, diff: Partial<Meta>): Promise<boolean>
 
   /**
    * Return action by action ID.
@@ -189,7 +189,7 @@ export abstract class LogStore {
    * @param id Action ID.
    * @returns Promise with array of action and metadata.
    */
-  byId (id: ID): Promise<[Action, Meta] | [null, null]>
+  byId(id: ID): Promise<[Action, Meta] | [null, null]>
 
   /**
    * Remove reason from action’s metadata and remove actions without reasons.
@@ -199,7 +199,7 @@ export abstract class LogStore {
    * @param callback Callback for every removed action.
    * @returns Promise when cleaning will be finished.
    */
-  removeReason (
+  removeReason(
     reason: string,
     criteria: Criteria,
     callback: ActionListener<Action, Meta>
@@ -210,7 +210,7 @@ export abstract class LogStore {
    *
    * @returns Promise when cleaning will be finished.
    */
-  clean (): Promise<void>
+  clean(): Promise<void>
 
   /**
    * Return biggest `added` number in store.
@@ -218,21 +218,21 @@ export abstract class LogStore {
    *
    * @returns Promise with biggest `added` number.
    */
-  getLastAdded (): Promise<number>
+  getLastAdded(): Promise<number>
 
   /**
    * Get `added` values for latest synchronized received/sent events.
    *
    * @returns Promise with `added` values
    */
-  getLastSynced (): Promise<LastSynced>
+  getLastSynced(): Promise<LastSynced>
 
   /**
    * Set `added` value for latest synchronized received or/and sent events.
    * @param values Object with latest sent or received values.
    * @returns Promise when values will be saved to store.
    */
-  setLastSynced (values: LastSynced): Promise<void>
+  setLastSynced(values: LastSynced): Promise<void>
 }
 
 type LogOptions<S extends LogStore = LogStore> = {
@@ -268,7 +268,7 @@ export class Log<M extends Meta = Meta, S extends LogStore = LogStore> {
   /**
    * @param opts Log options.
    */
-  constructor (opts: LogOptions<S>)
+  constructor(opts: LogOptions<S>)
 
   /**
    * Log store.
@@ -298,7 +298,7 @@ export class Log<M extends Meta = Meta, S extends LogStore = LogStore> {
    * @returns Promise with `meta` if action was added to log or `false`
    *          if action was already in log.
    */
-  add (action: AnyAction, meta?: Partial<M>): Promise<M | false>
+  add(action: AnyAction, meta?: Partial<M>): Promise<M | false>
 
   /**
    * Add listener for adding action with specific type.
@@ -321,7 +321,7 @@ export class Log<M extends Meta = Meta, S extends LogStore = LogStore> {
    * @param event
    * @returns Unbind listener from event.
    */
-  type<A extends Action = Action, T extends string = A['type']> (
+  type<A extends Action = Action, T extends string = A['type']>(
     type: T,
     listener: ActionListener<A, M>,
     opts?: { id?: string; event?: 'preadd' | 'add' | 'clean' }
@@ -349,7 +349,7 @@ export class Log<M extends Meta = Meta, S extends LogStore = LogStore> {
    * @param listener The listener function.
    * @returns Unbind listener from event.
    */
-  on (
+  on(
     event: 'preadd' | 'add' | 'clean',
     listener: ActionListener<Action, M>
   ): Unsubscribe
@@ -363,7 +363,7 @@ export class Log<M extends Meta = Meta, S extends LogStore = LogStore> {
    *
    * @returns Unique ID for action.
    */
-  generateId (): ID
+  generateId(): ID
 
   /**
    * Iterates through all actions, from last to first.
@@ -385,14 +385,14 @@ export class Log<M extends Meta = Meta, S extends LogStore = LogStore> {
    * @param callback Function will be executed on every action.
    * @returns When iteration will be finished by iterator or end of actions.
    */
-  each (callback: ActionIterator<M>): Promise<void>
+  each(callback: ActionIterator<M>): Promise<void>
 
   /**
    * @param opts Iterator options.
    * @param callback Function will be executed on every action.
    */
-  each (opts: GetOptions, callback: ActionIterator<M>): Promise<void>
-  each (callback: ActionIterator<M>): Promise<void>
+  each(opts: GetOptions, callback: ActionIterator<M>): Promise<void>
+  each(callback: ActionIterator<M>): Promise<void>
 
   /**
    * Change action metadata. You will remove action by setting `reasons: []`.
@@ -407,7 +407,7 @@ export class Log<M extends Meta = Meta, S extends LogStore = LogStore> {
    * @returns Promise with `true` if metadata was changed or `false`
    *          on unknown ID.
    */
-  changeMeta (id: ID, diff: Partial<M>): Promise<boolean>
+  changeMeta(id: ID, diff: Partial<M>): Promise<boolean>
 
   /**
    * Remove reason tag from action’s metadata and remove actions without reason
@@ -423,7 +423,7 @@ export class Log<M extends Meta = Meta, S extends LogStore = LogStore> {
    * @param criteria Criteria to select action for reason removing.
    * @returns Promise when cleaning will be finished.
    */
-  removeReason (reason: string, criteria?: Criteria): Promise<void>
+  removeReason(reason: string, criteria?: Criteria): Promise<void>
 
   /**
    * Does log already has action with this ID.
@@ -438,5 +438,5 @@ export class Log<M extends Meta = Meta, S extends LogStore = LogStore> {
    * @param id Action ID.
    * @returns Promise with array of action and metadata.
    */
-  byId (id: ID): Promise<[Action, M] | [null, null]>
+  byId(id: ID): Promise<[Action, M] | [null, null]>
 }

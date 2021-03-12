@@ -32,7 +32,7 @@ export class TestLog<M extends Meta = Meta> extends Log<M> {
    * ])
    * ```
    */
-  entries (): [Action, Meta][]
+  entries(): [Action, Meta][]
 
   /**
    * Return all action (without metadata) inside log, sorted by created time.
@@ -45,7 +45,7 @@ export class TestLog<M extends Meta = Meta> extends Log<M> {
    * ])
    * ```
    */
-  actions (): Action[]
+  actions(): Action[]
 
   /**
    * Keep actions without `meta.reasons` in the log by setting `test` reason
@@ -57,5 +57,5 @@ export class TestLog<M extends Meta = Meta> extends Log<M> {
    * log.actions() //=> [{ type: 'test' }]
    * ```
    */
-  keepActions (): void
+  keepActions(): void
 }

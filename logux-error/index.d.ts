@@ -37,7 +37,7 @@ export class LoguxError<
    * }
    * ```
    */
-  static description<K extends keyof LoguxErrorOptions> (
+  static description<K extends keyof LoguxErrorOptions>(
     type: K,
     options?: LoguxErrorOptions[K]
   ): string
@@ -47,7 +47,7 @@ export class LoguxError<
    * @param options The error option.
    * @param received Was error received from remote node.
    */
-  constructor (type: T, options?: LoguxErrorOptions[T], received?: boolean)
+  constructor(type: T, options?: LoguxErrorOptions[T], received?: boolean)
 
   /**
    * Always equal to `LoguxError`. The best way to check error class.

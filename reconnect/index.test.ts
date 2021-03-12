@@ -15,10 +15,10 @@ declare global {
 
 let listeners: { [key: string]: () => void } = {}
 const listenerMethods = {
-  addEventListener (name: string, callback: () => void): void {
+  addEventListener(name: string, callback: () => void): void {
     listeners[name] = callback
   },
-  removeEventListener (name: string, callback: () => void): void {
+  removeEventListener(name: string, callback: () => void): void {
     if (listeners[name] === callback) {
       delete listeners[name]
     }
@@ -39,7 +39,7 @@ beforeEach(() => {
   }
 })
 
-function privateMethods (obj: object): any {
+function privateMethods(obj: object): any {
   return obj
 }
 
@@ -101,21 +101,21 @@ it('reconnects on timeout and error disconnect', async () => {
 it('proxies connection methods', () => {
   let sent: Message[] = []
   let con = {
-    on () {
+    on() {
       return () => {}
     },
-    send (msg: Message) {
+    send(msg: Message) {
       sent.push(msg)
     },
-    async connect () {
+    async connect() {
       this.connected = true
     },
     emitter: {},
     connected: false,
-    disconnect () {
+    disconnect() {
       this.connected = false
     },
-    destroy () {}
+    destroy() {}
   }
   let recon = new Reconnect(con)
   expect(recon.connected).toBe(false)
@@ -271,7 +271,7 @@ it('has dynamic delay', () => {
     maxDelay: 5000
   })
 
-  function attemptsIsAround (attempt: number, ms: number): void {
+  function attemptsIsAround(attempt: number, ms: number): void {
     recon.attempts = attempt
     let time = privateMethods(recon).nextDelay()
     expect(Math.abs(time - ms)).toBeLessThan(1000)
@@ -282,7 +282,7 @@ it('has dynamic delay', () => {
   attemptsIsAround(2, 4500)
   attemptsIsAround(3, 5000)
 
-  function attemptsIs (attempt: number, ms: number): void {
+  function attemptsIs(attempt: number, ms: number): void {
     recon.attempts = attempt
     let time = privateMethods(recon).nextDelay()
     expect(time).toEqual(ms)

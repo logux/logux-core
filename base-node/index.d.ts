@@ -60,7 +60,7 @@ export abstract class Connection {
    *
    * @param message The message to be sent.
    */
-  send (message: Message): void
+  send(message: Message): void
 
   /**
    * Subscribe for connection events. It implements nanoevents API.
@@ -76,14 +76,14 @@ export abstract class Connection {
    * @param listener Event listener.
    * @returns Unbind listener from event.
    */
-  on (
+  on(
     event: 'connecting' | 'connect' | 'disconnect',
     listener: () => void
   ): Unsubscribe
 
-  on (event: 'error', listener: (error: Error) => void): Unsubscribe
-  on (event: 'message', listener: (msg: Message) => void): Unsubscribe
-  on (event: 'disconnect', listener: (reason: string) => void): Unsubscribe
+  on(event: 'error', listener: (error: Error) => void): Unsubscribe
+  on(event: 'message', listener: (msg: Message) => void): Unsubscribe
+  on(event: 'disconnect', listener: (reason: string) => void): Unsubscribe
 
   /**
    * Start connection. Connection should be in disconnected state
@@ -94,14 +94,14 @@ export abstract class Connection {
    *
    * @returns Promise until connection will be established.
    */
-  connect (): Promise<void>
+  connect(): Promise<void>
 
   /**
    * Finish current connection.
    *
    * @param reason Disconnection reason.
    */
-  disconnect (reason?: 'error' | 'timeout' | 'destroy'): void
+  disconnect(reason?: 'error' | 'timeout' | 'destroy'): void
 
   /**
    * Disconnect and unbind all even listeners.
@@ -176,7 +176,7 @@ export class BaseNode<H extends object = {}, L extends Log = Log<Meta>> {
    * @param connection Connection to remote node.
    * @param options Synchronization options.
    */
-  constructor (
+  constructor(
     nodeId: string,
     log: L,
     connection: Connection,
@@ -355,22 +355,22 @@ export class BaseNode<H extends object = {}, L extends Log = Log<Meta>> {
    * @param listener The listener function.
    * @returns Unbind listener from event.
    */
-  on (
+  on(
     event: 'state' | 'connect' | 'debug' | 'headers',
     listener: () => void
   ): Unsubscribe
 
-  on (
+  on(
     event: 'error' | 'clientError',
     listener: (error: LoguxError) => void
   ): Unsubscribe
 
-  on (
+  on(
     event: 'debug',
     listener: (type: 'error', data: string) => void
   ): Unsubscribe
 
-  on (event: 'headers', listener: (headers: H) => void): Unsubscribe
+  on(event: 'headers', listener: (headers: H) => void): Unsubscribe
 
   /**
    * Disable throwing a error on error message and create error listener.
@@ -384,7 +384,7 @@ export class BaseNode<H extends object = {}, L extends Log = Log<Meta>> {
    * @param listener The error listener.
    * @returns Unbind listener from event.
    */
-  catch (listener: (error: LoguxError) => void): Unsubscribe
+  catch(listener: (error: LoguxError) => void): Unsubscribe
 
   /**
    * Return Promise until sync will have specific state.
@@ -399,7 +399,7 @@ export class BaseNode<H extends object = {}, L extends Log = Log<Meta>> {
    * @param state The expected synchronization state value.
    * @returns Promise until specific state.
    */
-  waitFor (state: NodeState): Promise<void>
+  waitFor(state: NodeState): Promise<void>
 
   /**
    * Shut down the connection and unsubscribe from log events.
@@ -410,7 +410,7 @@ export class BaseNode<H extends object = {}, L extends Log = Log<Meta>> {
    * })
    * ```
    */
-  destroy (): void
+  destroy(): void
 
   /**
    * Set headers for current node.
@@ -424,5 +424,5 @@ export class BaseNode<H extends object = {}, L extends Log = Log<Meta>> {
    *
    * @param headers The data object will be set as headers for current node.
    */
-  setLocalHeaders (headers: H): void
+  setLocalHeaders(headers: H): void
 }

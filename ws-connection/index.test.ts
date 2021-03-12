@@ -18,7 +18,7 @@ class FakeWebSocket {
 
   onclose?: () => void
 
-  constructor (url: string, protocols: string, opts: object) {
+  constructor(url: string, protocols: string, opts: object) {
     this.opts = opts
     this.sent = []
     setTimeout(() => {
@@ -26,11 +26,11 @@ class FakeWebSocket {
     }, 1)
   }
 
-  send (msg: string): void {
+  send(msg: string): void {
     this.sent.push(msg)
   }
 
-  emit (name: string, data?: string | Error): void {
+  emit(name: string, data?: string | Error): void {
     if (name === 'open') {
       if (typeof this.onopen === 'undefined') {
         throw new Error(`No ${name} event listener`)
@@ -56,7 +56,7 @@ class FakeWebSocket {
     }
   }
 
-  close (): void {
+  close(): void {
     this.emit('close')
   }
 }
@@ -73,11 +73,11 @@ afterEach(() => {
   delete global.WebSocket
 })
 
-function privateMethods (obj: object): any {
+function privateMethods(obj: object): any {
   return obj
 }
 
-function emit (
+function emit(
   ws: WebSocket | undefined,
   name: string,
   data?: string | Error

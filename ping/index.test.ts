@@ -16,11 +16,11 @@ afterEach(() => {
   node?.destroy()
 })
 
-function privateMethods (obj: object): any {
+function privateMethods(obj: object): any {
   return obj
 }
 
-async function createTest (opts: NodeOptions): Promise<TestPair> {
+async function createTest(opts: NodeOptions): Promise<TestPair> {
   let log = TestTime.getLog()
   let test = new TestPair()
   await log.add({ type: 'test' }, { reasons: ['test'] })

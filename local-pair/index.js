@@ -1,14 +1,14 @@
 import { createNanoEvents } from 'nanoevents'
 
 class LocalConnection {
-  constructor (pair, type) {
+  constructor(pair, type) {
     this.connected = false
     this.emitter = createNanoEvents()
     this.type = type
     this.pair = pair
   }
 
-  other () {
+  other() {
     if (this.type === 'left') {
       return this.pair.right
     } else {
@@ -16,11 +16,11 @@ class LocalConnection {
     }
   }
 
-  on (event, listener) {
+  on(event, listener) {
     return this.emitter.on(event, listener)
   }
 
-  connect () {
+  connect() {
     if (this.connected) {
       throw new Error('Connection already established')
     } else {
@@ -37,7 +37,7 @@ class LocalConnection {
     }
   }
 
-  disconnect (reason) {
+  disconnect(reason) {
     if (!this.connected) {
       throw new Error('Connection already finished')
     } else {
@@ -53,7 +53,7 @@ class LocalConnection {
     }
   }
 
-  send (message) {
+  send(message) {
     if (this.connected) {
       setTimeout(() => {
         this.other().emitter.emit('message', message)
@@ -65,7 +65,7 @@ class LocalConnection {
 }
 
 export class LocalPair {
-  constructor (delay = 1) {
+  constructor(delay = 1) {
     this.delay = delay
     this.left = new LocalConnection(this, 'left')
     this.right = new LocalConnection(this, 'right')

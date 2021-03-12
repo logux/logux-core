@@ -26,7 +26,7 @@ const NOT_TO_THROW = {
 
 const BEFORE_AUTH = ['connect', 'connected', 'error', 'debug', 'headers']
 
-async function syncMappedEvent (node, action, meta) {
+async function syncMappedEvent(node, action, meta) {
   let added = meta.added
   if (typeof added === 'undefined') {
     let lastAdded = node.lastAddedCache
@@ -45,7 +45,7 @@ async function syncMappedEvent (node, action, meta) {
 }
 
 export class BaseNode {
-  constructor (nodeId, log, connection, options = {}) {
+  constructor(nodeId, log, connection, options = {}) {
     this.remoteNodeId = undefined
     this.remoteProtocol = undefined
     this.remoteSubprotocol = undefined
@@ -112,11 +112,11 @@ export class BaseNode {
     this.remoteHeaders = {}
   }
 
-  on (event, listener) {
+  on(event, listener) {
     return this.emitter.on(event, listener)
   }
 
-  catch (listener) {
+  catch(listener) {
     this.throwsError = false
     let unbind = this.on('error', listener)
     return () => {
@@ -125,7 +125,7 @@ export class BaseNode {
     }
   }
 
-  waitFor (state) {
+  waitFor(state) {
     if (this.state === state) {
       return Promise.resolve()
     }
@@ -139,7 +139,7 @@ export class BaseNode {
     })
   }
 
-  destroy () {
+  destroy() {
     if (this.connection.destroy) {
       this.connection.destroy()
     } else if (this.connected) {
@@ -150,14 +150,14 @@ export class BaseNode {
     this.endTimeout()
   }
 
-  setLocalHeaders (headers) {
+  setLocalHeaders(headers) {
     this.localHeaders = headers
     if (this.connected) {
       this.sendHeaders(headers)
     }
   }
 
-  send (msg) {
+  send(msg) {
     if (!this.connected) return
     this.delayPing()
     try {
@@ -167,16 +167,16 @@ export class BaseNode {
     }
   }
 
-  onConnecting () {
+  onConnecting() {
     this.setState('connecting')
   }
 
-  onConnect () {
+  onConnect() {
     this.delayPing()
     this.connected = true
   }
 
-  onDisconnect () {
+  onDisconnect() {
     while (this.timeouts.length > 0) {
       this.endTimeout()
     }
@@ -186,7 +186,7 @@ export class BaseNode {
     this.setState('disconnected')
   }
 
-  onMessage (msg) {
+  onMessage(msg) {
     this.delayPing()
     let name = msg[0]
 
@@ -198,7 +198,7 @@ export class BaseNode {
     this[name + 'Message'](...msg.slice(1))
   }
 
-  async onAdd (action, meta) {
+  async onAdd(action, meta) {
     if (!this.authenticated) return
     if (this.lastAddedCache < meta.added) {
       this.lastAddedCache = meta.added
@@ -221,7 +221,7 @@ export class BaseNode {
     }
   }
 
-  syncError (type, options, received) {
+  syncError(type, options, received) {
     let err = new LoguxError(type, options, received)
     this.emitter.emit('error', err)
     if (!NOT_TO_THROW[type] && this.throwsError) {
@@ -229,7 +229,7 @@ export class BaseNode {
     }
   }
 
-  error (err) {
+  error(err) {
     this.emitter.emit('error', err)
     this.connection.disconnect('error')
     if (this.throwsError) {
@@ -237,14 +237,14 @@ export class BaseNode {
     }
   }
 
-  setState (state) {
+  setState(state) {
     if (this.state !== state) {
       this.state = state
       this.emitter.emit('state')
     }
   }
 
-  startTimeout () {
+  startTimeout() {
     if (!this.options.timeout) return
 
     let ms = this.options.timeout
@@ -256,13 +256,13 @@ export class BaseNode {
     this.timeouts.push(timeout)
   }
 
-  endTimeout () {
+  endTimeout() {
     if (this.timeouts.length > 0) {
       clearTimeout(this.timeouts.shift())
     }
   }
 
-  delayPing () {
+  delayPing() {
     if (!this.options.ping) return
     if (this.pingTimeout) clearTimeout(this.pingTimeout)
 
@@ -271,7 +271,7 @@ export class BaseNode {
     }, this.options.ping)
   }
 
-  async syncSinceQuery (lastSynced) {
+  async syncSinceQuery(lastSynced) {
     let promises = []
     await this.log.each({ order: 'added' }, (action, meta) => {
       if (meta.added <= lastSynced) return false
@@ -308,7 +308,7 @@ export class BaseNode {
     return data
   }
 
-  async syncSince (lastSynced) {
+  async syncSince(lastSynced) {
     let data = await this.syncSinceQuery(lastSynced)
     if (!this.connected) return
     if (data.entries.length > 0) {
@@ -332,23 +332,23 @@ export class BaseNode {
     }
   }
 
-  setLastSent (value) {
+  setLastSent(value) {
     if (this.lastSent < value) {
       this.lastSent = value
       this.log.store.setLastSynced({ sent: value })
     }
   }
 
-  setLastReceived (value) {
+  setLastReceived(value) {
     if (this.lastReceived < value) this.lastReceived = value
     this.log.store.setLastSynced({ received: value })
   }
 
-  now () {
+  now() {
     return Date.now()
   }
 
-  async initialize () {
+  async initialize() {
     let [synced, added] = await Promise.all([
       this.log.store.getLastSynced(),
       this.log.store.getLastAdded()
@@ -360,11 +360,11 @@ export class BaseNode {
     if (this.connection.connected) this.onConnect()
   }
 
-  sendDuilian () {
+  sendDuilian() {
     this.send(['duilian', Object.keys(DUILIANS)[0]])
   }
 
-  duilianMessage (line) {
+  duilianMessage(line) {
     if (DUILIANS[line]) {
       this.send(['duilian', DUILIANS[line]])
     }

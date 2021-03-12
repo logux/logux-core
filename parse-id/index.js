@@ -1,4 +1,4 @@
-export function parseId (nodeId) {
+export function parseId(nodeId) {
   if (nodeId.includes(' ')) nodeId = nodeId.split(' ')[1]
   let parts = nodeId.split(':')
   if (parts.length === 1) {

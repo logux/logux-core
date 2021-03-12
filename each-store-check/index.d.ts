@@ -13,7 +13,7 @@ import { LogStore } from '../log/index.js'
  *
  * @param test Callback to create tests in your test framework.
  */
-export function eachStoreCheck (
+export function eachStoreCheck(
   test: (
     name: string,
     testCreator: (storeCreator: () => LogStore) => () => void

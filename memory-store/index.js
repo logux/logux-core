@@ -1,12 +1,12 @@
 import { isFirstOlder } from '../is-first-older/index.js'
 
-function checkIndex (store, index) {
+function checkIndex(store, index) {
   if (!store.indexes[index]) {
     store.indexes[index] = { added: [], entries: [] }
   }
 }
 
-function forEachIndex (meta, cb) {
+function forEachIndex(meta, cb) {
   let indexes = meta.indexes
   if (isDefined(indexes) && indexes.length > 0) {
     for (let index of indexes) {
@@ -15,7 +15,7 @@ function forEachIndex (meta, cb) {
   }
 }
 
-function insert (store, entry) {
+function insert(store, entry) {
   store.lastAdded += 1
   entry[1].added = store.lastAdded
   store.added.push(entry)
@@ -26,7 +26,7 @@ function insert (store, entry) {
   return Promise.resolve(entry[1])
 }
 
-function eject (store, meta) {
+function eject(store, meta) {
   let added = meta.added
   let start = 0
   let end = store.added.length - 1
@@ -44,7 +44,7 @@ function eject (store, meta) {
   }
 }
 
-function find (list, id) {
+function find(list, id) {
   for (let i = list.length - 1; i >= 0; i--) {
     if (id === list[i][1].id) {
       return i
@@ -53,12 +53,12 @@ function find (list, id) {
   return -1
 }
 
-function isDefined (value) {
+function isDefined(value) {
   return typeof value !== 'undefined'
 }
 
 export class MemoryStore {
-  constructor () {
+  constructor() {
     this.entries = []
     this.added = []
     this.indexes = {}
@@ -67,7 +67,7 @@ export class MemoryStore {
     this.lastSent = 0
   }
 
-  async add (action, meta) {
+  async add(action, meta) {
     let entry = [action, meta]
     let id = meta.id
 
@@ -96,7 +96,7 @@ export class MemoryStore {
     return insert(this, entry)
   }
 
-  async byId (id) {
+  async byId(id) {
     let created = find(this.entries, id)
     if (created === -1) {
       return [null, null]
@@ -106,7 +106,7 @@ export class MemoryStore {
     }
   }
 
-  async remove (id, created) {
+  async remove(id, created) {
     if (typeof created === 'undefined') {
       created = find(this.entries, id)
       if (created === -1) return Promise.resolve(false)
@@ -128,7 +128,7 @@ export class MemoryStore {
     return entry
   }
 
-  async get (opts = {}) {
+  async get(opts = {}) {
     let index = opts.index
     let store = this
     let entries
@@ -143,7 +143,7 @@ export class MemoryStore {
     return { entries: entries.slice(0) }
   }
 
-  async changeMeta (id, diff) {
+  async changeMeta(id, diff) {
     let index = find(this.entries, id)
     if (index === -1) {
       return false
@@ -154,7 +154,7 @@ export class MemoryStore {
     }
   }
 
-  async removeReason (reason, criteria, callback) {
+  async removeReason(reason, criteria, callback) {
     let removed = []
 
     if (criteria.id) {
@@ -214,7 +214,7 @@ export class MemoryStore {
     }
   }
 
-  async clean () {
+  async clean() {
     this.entries = []
     this.added = []
     this.indexes = {}
@@ -223,18 +223,18 @@ export class MemoryStore {
     this.lastSent = 0
   }
 
-  async getLastAdded () {
+  async getLastAdded() {
     return this.lastAdded
   }
 
-  async getLastSynced () {
+  async getLastSynced() {
     return {
       received: this.lastReceived,
       sent: this.lastSent
     }
   }
 
-  async setLastSynced (values) {
+  async setLastSynced(values) {
     if (typeof values.sent !== 'undefined') {
       this.lastSent = values.sent
     }

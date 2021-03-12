@@ -1,7 +1,7 @@
 import { Connection } from '../base-node/index.js'
 
 export class LocalConnection extends Connection {
-  other (): LocalConnection
+  other(): LocalConnection
 }
 
 /**
@@ -18,7 +18,7 @@ export class LocalPair {
   /**
    * @param delay Delay for connection and send events. Default is `1`.
    */
-  constructor (delay?: number)
+  constructor(delay?: number)
 
   /**
    * Delay for connection and send events to emulate real connection latency.

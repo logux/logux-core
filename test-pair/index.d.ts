@@ -97,7 +97,7 @@ export class TestPair extends LocalPair {
    * ])
    * ```
    */
-  clear (): void
+  clear(): void
 
   /**
    * Return Promise until next event.
@@ -111,5 +111,5 @@ export class TestPair extends LocalPair {
    * @param receiver Wait for specific receiver event.
    * @returns Promise until next event.
    */
-  wait (receiver?: 'left' | 'right'): Promise<this>
+  wait(receiver?: 'left' | 'right'): Promise<this>
 }

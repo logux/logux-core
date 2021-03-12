@@ -1,22 +1,22 @@
 import { LoguxError } from '../logux-error/index.js'
 
-function isNumber (value) {
+function isNumber(value) {
   return typeof value === 'number'
 }
 
-function isString (value) {
+function isString(value) {
   return typeof value === 'string'
 }
 
-function isObject (value) {
+function isObject(value) {
   return typeof value === 'object' && typeof value.length !== 'number'
 }
 
-function isArray (value) {
+function isArray(value) {
   return Array.isArray(value)
 }
 
-function isTwoNumbers (value) {
+function isTwoNumbers(value) {
   return (
     isArray(value) &&
     value.length === 2 &&
@@ -25,7 +25,7 @@ function isTwoNumbers (value) {
   )
 }
 
-function isID (value) {
+function isID(value) {
   return (
     isArray(value) &&
     value.length === 3 &&
@@ -35,7 +35,7 @@ function isID (value) {
   )
 }
 
-function isMeta (value) {
+function isMeta(value) {
   return (
     isObject(value) &&
     isNumber(value.time) &&
@@ -44,7 +44,7 @@ function isMeta (value) {
 }
 
 let validators = {
-  connect (msg) {
+  connect(msg) {
     return (
       isNumber(msg[1]) &&
       isString(msg[2]) &&
@@ -53,7 +53,7 @@ let validators = {
     )
   },
 
-  connected (msg) {
+  connected(msg) {
     return (
       isNumber(msg[1]) &&
       isString(msg[2]) &&
@@ -62,15 +62,15 @@ let validators = {
     )
   },
 
-  ping (msg) {
+  ping(msg) {
     return msg.length === 2 && isNumber(msg[1])
   },
 
-  pong (msg) {
+  pong(msg) {
     return msg.length === 2 && isNumber(msg[1])
   },
 
-  sync (msg) {
+  sync(msg) {
     if (!isNumber(msg[1])) return false
     if (msg.length % 2 !== 0) return false
 
@@ -85,19 +85,19 @@ let validators = {
     return true
   },
 
-  synced (msg) {
+  synced(msg) {
     return msg.length === 2 && isNumber(msg[1])
   },
 
-  error (msg) {
+  error(msg) {
     return (msg.length === 2 || msg.length === 3) && isString(msg[1])
   },
 
-  duilian (msg) {
+  duilian(msg) {
     return msg.length === 2 && isString(msg[1])
   },
 
-  debug (msg) {
+  debug(msg) {
     return (
       msg.length === 3 &&
       isString(msg[1]) &&
@@ -106,18 +106,18 @@ let validators = {
     )
   },
 
-  headers (msg) {
+  headers(msg) {
     return msg.length === 2 && isObject(msg[1])
   }
 }
 
-function wrongFormat (node, msg) {
+function wrongFormat(node, msg) {
   node.sendError(new LoguxError('wrong-format', JSON.stringify(msg)))
   node.connection.disconnect('error')
   return false
 }
 
-export function validate (node, msg) {
+export function validate(node, msg) {
   if (!isArray(msg)) return wrongFormat(node, msg)
 
   let name = msg[0]

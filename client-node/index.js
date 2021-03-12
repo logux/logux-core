@@ -7,12 +7,12 @@ const DEFAULT_OPTIONS = {
 }
 
 export class ClientNode extends BaseNode {
-  constructor (nodeId, log, connection, options = {}) {
+  constructor(nodeId, log, connection, options = {}) {
     options = { ...DEFAULT_OPTIONS, ...options }
     super(nodeId, log, connection, options)
   }
 
-  onConnect () {
+  onConnect() {
     if (!this.connected) {
       this.connected = true
       this.initializing = this.initializing.then(() => {

@@ -1,6 +1,6 @@
 import { LocalPair } from '../local-pair/index.js'
 
-function clone (obj) {
+function clone(obj) {
   if (Array.isArray(obj)) {
     return obj.map(i => clone(i))
   } else if (typeof obj === 'object') {
@@ -15,7 +15,7 @@ function clone (obj) {
 }
 
 export class TestPair extends LocalPair {
-  constructor (delay) {
+  constructor(delay) {
     super(delay)
 
     this.leftNode = undefined
@@ -56,14 +56,14 @@ export class TestPair extends LocalPair {
     ]
   }
 
-  clear () {
+  clear() {
     this.leftSent = []
     this.rightSent = []
     this.leftEvents = []
     this.rightEvents = []
   }
 
-  wait (receiver) {
+  wait(receiver) {
     return new Promise(resolve => {
       this.waiting = from => {
         if (!receiver || from === receiver) {

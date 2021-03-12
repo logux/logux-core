@@ -63,7 +63,7 @@ export class Reconnect extends Connection {
    * @param connection The connection to be reconnectable.
    * @param options Reconnection options.
    */
-  constructor (connection: Connection, options?: ReconnectOptions)
+  constructor(connection: Connection, options?: ReconnectOptions)
 
   /**
    * Unbind all listeners and disconnect. Use it if you will not need

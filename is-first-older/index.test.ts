@@ -1,6 +1,6 @@
 import { isFirstOlder, Meta } from '../index.js'
 
-function createMeta (id: string, time: number): Meta {
+function createMeta(id: string, time: number): Meta {
   return { id, time, reasons: [], added: 1 }
 }
 

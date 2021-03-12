@@ -49,9 +49,9 @@ export class TestTime {
    *
    * @param opts Log options.
    */
-  static getLog (opts?: TestLogOptions): TestLog
+  static getLog(opts?: TestLogOptions): TestLog
 
-  constructor ()
+  constructor()
 
   /**
    * Last letd number in log’s `nodeId`.
@@ -71,5 +71,5 @@ export class TestTime {
    *
    * @param opts Log options.
    */
-  nextLog (opts?: TestLogOptions): TestLog
+  nextLog(opts?: TestLogOptions): TestLog
 }

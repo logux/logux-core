@@ -2,11 +2,11 @@ import { ServerConnection, Message } from '../index.js'
 import { jest } from '@jest/globals'
 import WebSocket from 'ws'
 
-function privateMethods (obj: object): any {
+function privateMethods(obj: object): any {
   return obj
 }
 
-function prepareWs (): WebSocket {
+function prepareWs(): WebSocket {
   let ws = new WebSocket('ws://example.com/')
   privateMethods(ws)._readyState = ws.OPEN
   return ws

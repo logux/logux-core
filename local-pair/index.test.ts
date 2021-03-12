@@ -6,7 +6,7 @@ type Event =
   | ['disconnect', string]
   | ['message', Message]
 
-function track (tracker: Tracker, connection: Connection): Event[] {
+function track(tracker: Tracker, connection: Connection): Event[] {
   let events: Event[] = []
   connection.on('connecting', () => {
     events.push(['connecting'])
@@ -36,13 +36,13 @@ class Tracker {
 
   right: Event[]
 
-  constructor (delay?: number) {
+  constructor(delay?: number) {
     this.pair = new LocalPair(delay)
     this.left = track(this, this.pair.left)
     this.right = track(this, this.pair.right)
   }
 
-  wait (): Promise<void> {
+  wait(): Promise<void> {
     return new Promise<void>(resolve => {
       this.waiting = () => {
         delete this.waiting

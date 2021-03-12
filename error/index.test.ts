@@ -12,16 +12,16 @@ afterEach(() => {
   node.destroy()
 })
 
-function privateMethods (obj: object): any {
+function privateMethods(obj: object): any {
   return obj
 }
 
-function createNode (): ServerNode<{}, TestLog> {
+function createNode(): ServerNode<{}, TestLog> {
   let pair = new TestPair()
   return new ServerNode('server', TestTime.getLog(), pair.left)
 }
 
-async function createTest (): Promise<TestPair> {
+async function createTest(): Promise<TestPair> {
   let test = new TestPair()
   node = new ServerNode('server', TestTime.getLog(), test.left)
   test.leftNode = node

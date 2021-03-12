@@ -2,7 +2,7 @@ import { ServerNode, TestTime, TestPair, TestLog } from '../index.js'
 
 let node: ServerNode<{}, TestLog>
 
-async function createTest (): Promise<TestPair> {
+async function createTest(): Promise<TestPair> {
   let test = new TestPair()
   node = new ServerNode('server', TestTime.getLog(), test.left)
   test.leftNode = node
@@ -14,7 +14,7 @@ afterEach(() => {
   node.destroy()
 })
 
-function privateMethods (obj: object): any {
+function privateMethods(obj: object): any {
   return obj
 }
 

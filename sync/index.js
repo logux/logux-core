@@ -1,4 +1,4 @@
-export function sendSync (added, entries) {
+export function sendSync(added, entries) {
   this.startTimeout()
 
   let data = []
@@ -33,11 +33,11 @@ export function sendSync (added, entries) {
   this.send(['sync', added].concat(data))
 }
 
-export function sendSynced (added) {
+export function sendSynced(added) {
   this.send(['synced', added])
 }
 
-export async function syncMessage (added, ...data) {
+export async function syncMessage(added, ...data) {
   let promises = []
 
   for (let i = 0; i < data.length - 1; i += 2) {
@@ -99,7 +99,7 @@ export async function syncMessage (added, ...data) {
   this.sendSynced(added)
 }
 
-export function syncedMessage (synced) {
+export function syncedMessage(synced) {
   this.endTimeout()
   this.setLastSent(synced)
   if (this.syncing > 0) this.syncing -= 1

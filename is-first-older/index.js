@@ -1,4 +1,4 @@
-export function isFirstOlder (firstMeta, secondMeta) {
+export function isFirstOlder(firstMeta, secondMeta) {
   if (firstMeta && !secondMeta) {
     return false
   } else if (!firstMeta && secondMeta) {

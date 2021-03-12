@@ -1,6 +1,6 @@
 import { LoguxError } from '../logux-error/index.js'
 
-async function auth (node, nodeId, token, callback) {
+async function auth(node, nodeId, token, callback) {
   if (!node.options.auth) {
     node.authenticated = true
     callback()
@@ -30,7 +30,7 @@ async function auth (node, nodeId, token, callback) {
   }
 }
 
-function checkProtocol (node, ver) {
+function checkProtocol(node, ver) {
   node.remoteProtocol = ver
 
   if (ver >= node.minProtocol) {
@@ -47,7 +47,7 @@ function checkProtocol (node, ver) {
   }
 }
 
-function emitEvent (node) {
+function emitEvent(node) {
   try {
     node.emitter.emit('connect')
   } catch (e) {
@@ -61,7 +61,7 @@ function emitEvent (node) {
   return true
 }
 
-export async function sendConnect () {
+export async function sendConnect() {
   let message = [
     'connect',
     this.localProtocol,
@@ -92,7 +92,7 @@ export async function sendConnect () {
   this.send(message)
 }
 
-export async function sendConnected (start, end) {
+export async function sendConnected(start, end) {
   let message = [
     'connected',
     this.localProtocol,
@@ -120,7 +120,7 @@ export async function sendConnected (start, end) {
   this.send(message)
 }
 
-export function connectMessage (ver, nodeId, synced, options) {
+export function connectMessage(ver, nodeId, synced, options) {
   let start = this.now()
   if (!options) options = {}
 
@@ -141,7 +141,7 @@ export function connectMessage (ver, nodeId, synced, options) {
   })
 }
 
-export function connectedMessage (ver, nodeId, time, options) {
+export function connectedMessage(ver, nodeId, time, options) {
   if (!options) options = {}
 
   this.endTimeout()

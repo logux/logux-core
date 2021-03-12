@@ -9,11 +9,11 @@ afterEach(() => {
   destroyable.rightNode.destroy()
 })
 
-function privateMethods (obj: object): any {
+function privateMethods(obj: object): any {
   return obj
 }
 
-function createPair (): TestPair {
+function createPair(): TestPair {
   let time = new TestTime()
   let log1 = time.nextLog()
   let log2 = time.nextLog()
@@ -34,7 +34,7 @@ function createPair (): TestPair {
   return test
 }
 
-async function createTest (
+async function createTest(
   before?: (test: TestPair) => void
 ): Promise<TestPair> {
   let test = createPair()

@@ -11,7 +11,7 @@ const FATAL_ERRORS = [
 ]
 
 export class Reconnect {
-  constructor (connection, options = {}) {
+  constructor(connection, options = {}) {
     this.connection = connection
     this.options = { ...DEFAULT_OPTIONS, ...options }
 
@@ -75,25 +75,25 @@ export class Reconnect {
     }
   }
 
-  connect () {
+  connect() {
     this.attempts += 1
     this.reconnecting = true
     return this.connection.connect()
   }
 
-  disconnect (reason) {
+  disconnect(reason) {
     if (reason !== 'timeout' && reason !== 'error' && reason !== 'freeze') {
       this.reconnecting = false
     }
     return this.connection.disconnect(reason)
   }
 
-  destroy () {
+  destroy() {
     for (let i of this.unbind) i()
     this.disconnect('destroy')
   }
 
-  reconnect () {
+  reconnect() {
     if (this.attempts > this.options.attempts - 1) {
       this.reconnecting = false
       this.attempts = 0
@@ -108,15 +108,15 @@ export class Reconnect {
     }, delay)
   }
 
-  send (...args) {
+  send(...args) {
     return this.connection.send(...args)
   }
 
-  on (...args) {
+  on(...args) {
     return this.connection.on(...args)
   }
 
-  nextDelay () {
+  nextDelay() {
     let base = this.options.minDelay * 2 ** this.attempts
     let rand = Math.random()
     let deviation = Math.floor(rand * 0.5 * base)
@@ -124,11 +124,11 @@ export class Reconnect {
     return Math.min(base + deviation, this.options.maxDelay) || 0
   }
 
-  get connected () {
+  get connected() {
     return this.connection.connected
   }
 
-  get emitter () {
+  get emitter() {
     return this.connection.emitter
   }
 }

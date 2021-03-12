@@ -1,37 +1,37 @@
 import assert from 'assert'
 
-async function all (request, list) {
+async function all(request, list) {
   if (!list) list = []
   let page = await request
   list = page.entries.concat(list)
   return page.next ? all(page.next(), list) : list
 }
 
-async function check (store, opts, list) {
+async function check(store, opts, list) {
   let entries = await all(store.get(opts))
   assert.deepStrictEqual(entries, list)
 }
 
-async function checkBoth (store, entries) {
+async function checkBoth(store, entries) {
   await Promise.all([
     check(store, { order: 'created' }, entries),
     check(store, { order: 'added' }, entries)
   ])
 }
 
-async function checkIndex (store, index, entries) {
+async function checkIndex(store, index, entries) {
   await Promise.all([
     check(store, { index, order: 'created' }, entries),
     check(store, { index, order: 'added' }, entries)
   ])
 }
 
-async function checkLastAdded (store, expected) {
+async function checkLastAdded(store, expected) {
   let lastAdded = await store.getLastAdded()
   assert.strictEqual(lastAdded, expected)
 }
 
-async function checkLastSynced (store, expectedSent, expectedRecieved) {
+async function checkLastSynced(store, expectedSent, expectedRecieved) {
   let lastSynced = await store.getLastSynced()
   assert.deepStrictEqual(lastSynced, {
     sent: expectedSent,
@@ -39,7 +39,7 @@ async function checkLastSynced (store, expectedSent, expectedRecieved) {
   })
 }
 
-export function eachStoreCheck (test) {
+export function eachStoreCheck(test) {
   test('is empty in the beginning', factory => async () => {
     let store = factory()
     await Promise.all([checkLastAdded(store, 0), checkLastSynced(store, 0, 0)])
@@ -331,7 +331,7 @@ export function eachStoreCheck (test) {
   test('removes reasons and actions by id', factory => async () => {
     let store = factory()
     let removed = []
-    function push (action) {
+    function push(action) {
       removed.push(action.type)
     }
     await Promise.all([

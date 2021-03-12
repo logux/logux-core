@@ -19,7 +19,7 @@ client.setLocalHeaders({ locale: 'ru' })
 // THROWS Type 'string' is not assignable to type 'number | undefined'.
 client.log.add({ type: 'A' }, { extra: '1' })
 
-function sayHi (lang: string) {
+function sayHi(lang: string) {
   console.log('Hi, ' + lang)
 }
 

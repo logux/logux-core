@@ -17,7 +17,7 @@ client.setLocalHeaders({ lang: 'ru' })
 
 client.log.add({ type: 'A' }, { extra: 1 })
 
-function sayHi (lang: string): void {
+function sayHi(lang: string): void {
   console.log('Hi, ' + lang)
 }
 

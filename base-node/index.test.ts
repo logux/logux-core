@@ -10,7 +10,7 @@ import {
 } from '../index.js'
 import { TestLog } from '../test-log/index.js'
 
-function createNode (
+function createNode(
   opts?: NodeOptions,
   pair = new TestPair()
 ): BaseNode<{}, TestLog> {
@@ -21,7 +21,7 @@ function createNode (
   return new BaseNode('client', log, pair.left, opts)
 }
 
-async function createTest (): Promise<TestPair> {
+async function createTest(): Promise<TestPair> {
   let pair = new TestPair()
   let node = createNode({}, pair)
   pair.leftNode = node
@@ -29,15 +29,15 @@ async function createTest (): Promise<TestPair> {
   return pair
 }
 
-function privateMethods (obj: object): any {
+function privateMethods(obj: object): any {
   return obj
 }
 
-function emit (obj: any, event: string, ...args: any): void {
+function emit(obj: any, event: string, ...args: any): void {
   obj.emitter.emit(event, ...args)
 }
 
-function listeners (obj: any): number {
+function listeners(obj: any): number {
   let count = 0
   for (let i in obj.emitter.events) {
     count += obj.emitter.events[i]?.length ?? 0

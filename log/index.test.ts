@@ -1,18 +1,18 @@
 import { MemoryStore, Log, Action, Meta, Page } from '../index.js'
 
-function createLog (): Log<Meta, MemoryStore> {
+function createLog(): Log<Meta, MemoryStore> {
   return new Log({
     nodeId: 'test',
     store: new MemoryStore()
   })
 }
 
-function checkActions (log: Log<Meta, MemoryStore>, expected: Action[]): void {
+function checkActions(log: Log<Meta, MemoryStore>, expected: Action[]): void {
   let actions = log.store.entries.map(entry => entry[0])
   expect(actions).toEqual(expected)
 }
 
-function checkEntries (
+function checkEntries(
   log: Log<Meta, MemoryStore>,
   expected: [Action, Partial<Meta>][]
 ): void {
@@ -20,7 +20,7 @@ function checkEntries (
   expect(entries).toEqual(expected)
 }
 
-async function logWith (
+async function logWith(
   entries: [Action, Partial<Meta>][]
 ): Promise<Log<Meta, MemoryStore>> {
   let log = createLog()
@@ -182,7 +182,7 @@ it('supports multi-pages stores', async () => {
   let get: (opts?: object) => Promise<Page> = async () => {
     return {
       entries: [[{ type: 'a' }, meta]],
-      async next (): Promise<Page> {
+      async next(): Promise<Page> {
         return { entries: [[{ type: 'b' }, meta]] }
       }
     }

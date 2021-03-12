@@ -24,5 +24,5 @@ export class ServerConnection extends Connection {
   /**
    * @param ws WebSocket connection instance
    */
-  constructor (ws: WebSocket)
+  constructor(ws: WebSocket)
 }

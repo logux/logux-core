@@ -1,7 +1,7 @@
 import { createNanoEvents } from 'nanoevents'
 
 export class WsConnection {
-  constructor (url, Class, opts) {
+  constructor(url, Class, opts) {
     this.connected = false
     this.emitter = createNanoEvents()
     if (Class) {
@@ -15,7 +15,7 @@ export class WsConnection {
     this.opts = opts
   }
 
-  init (ws) {
+  init(ws) {
     ws.onerror = event => {
       this.emitter.emit('error', event.error || new Error('WS Error'))
     }
@@ -38,7 +38,7 @@ export class WsConnection {
     this.ws = ws
   }
 
-  connect () {
+  connect() {
     if (this.ws) return Promise.resolve()
 
     this.emitter.emit('connecting')
@@ -53,7 +53,7 @@ export class WsConnection {
     })
   }
 
-  disconnect () {
+  disconnect() {
     if (this.ws) {
       this.ws.onclose = undefined
       this.ws.close()
@@ -61,11 +61,11 @@ export class WsConnection {
     }
   }
 
-  on (event, listener) {
+  on(event, listener) {
     return this.emitter.on(event, listener)
   }
 
-  send (message) {
+  send(message) {
     if (this.ws && this.ws.readyState === this.ws.OPEN) {
       this.ws.send(JSON.stringify(message))
     } else {
@@ -73,13 +73,13 @@ export class WsConnection {
     }
   }
 
-  error (message) {
+  error(message) {
     let err = new Error('Wrong message format')
     err.received = message
     this.emitter.emit('error', err)
   }
 
-  onclose () {
+  onclose() {
     if (this.ws) {
       this.connected = false
       this.emitter.emit('disconnect')

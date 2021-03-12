@@ -7,7 +7,7 @@ const DEFAULT_OPTIONS = {
 }
 
 export class ServerNode extends BaseNode {
-  constructor (nodeId, log, connection, options = {}) {
+  constructor(nodeId, log, connection, options = {}) {
     options = { ...DEFAULT_OPTIONS, ...options }
     super(nodeId, log, connection, options)
 
@@ -20,31 +20,31 @@ export class ServerNode extends BaseNode {
     this.state = 'connecting'
   }
 
-  onConnect () {
+  onConnect() {
     if (this.initialized) {
       super.onConnect()
       this.startTimeout()
     }
   }
 
-  onDisconnect () {
+  onDisconnect() {
     super.onDisconnect()
     this.destroy()
   }
 
-  onMessage (msg) {
+  onMessage(msg) {
     if (validate(this, msg)) {
       super.onMessage(msg)
     }
   }
 
-  async connectMessage (...args) {
+  async connectMessage(...args) {
     await this.initializing
     super.connectMessage(...args)
     this.endTimeout()
   }
 
-  async initialize () {
+  async initialize() {
     let added = await this.log.store.getLastAdded()
     this.initialized = true
     this.lastAddedCache = added

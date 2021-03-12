@@ -8,7 +8,7 @@ afterEach(() => {
   node.destroy()
 })
 
-function privateMethods (obj: object): any {
+function privateMethods(obj: object): any {
   return obj
 }
 

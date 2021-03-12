@@ -23,5 +23,5 @@ export class WsConnection<WS = WebSocket> extends Connection {
    * @param WS WebSocket class if you want change implementation.
    * @param opts Extra option for WebSocket constructor.
    */
-  constructor (url: string, Class?: any, opts?: any)
+  constructor(url: string, Class?: any, opts?: any)
 }

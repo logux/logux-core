@@ -8,7 +8,7 @@ afterEach(() => {
   wss.close()
 })
 
-function connect (
+function connect(
   server: WebSocket.Server,
   client: WsConnection
 ): Promise<ServerConnection> {

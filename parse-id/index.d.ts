@@ -14,4 +14,4 @@ type IDComponents = {
  *
  * @param id Action or Node ID
  */
-export function parseId (id: string): IDComponents
+export function parseId(id: string): IDComponents

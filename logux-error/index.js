@@ -1,5 +1,5 @@
 export class LoguxError extends Error {
-  static describe (type, options) {
+  static describe(type, options) {
     if (type === 'timeout') {
       return 'A timeout was reached (' + options + ' ms)'
     } else if (type === 'wrong-format') {
@@ -25,7 +25,7 @@ export class LoguxError extends Error {
     }
   }
 
-  constructor (type, options, received) {
+  constructor(type, options, received) {
     super(type)
     this.name = 'LoguxError'
     this.type = type

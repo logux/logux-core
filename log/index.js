@@ -1,6 +1,6 @@
 import { createNanoEvents } from 'nanoevents'
 
-export function actionEvents (emitter, event, action, meta) {
+export function actionEvents(emitter, event, action, meta) {
   if (action.id) {
     emitter.emit(`${event}-${action.type}-${action.id}`, action, meta)
   }
@@ -9,7 +9,7 @@ export function actionEvents (emitter, event, action, meta) {
 }
 
 export class Log {
-  constructor (opts = {}) {
+  constructor(opts = {}) {
     if (process.env.NODE_ENV !== 'production') {
       if (typeof opts.nodeId === 'undefined') {
         throw new Error('Expected node ID')
@@ -32,17 +32,17 @@ export class Log {
     this.emitter = createNanoEvents()
   }
 
-  on (event, listener) {
+  on(event, listener) {
     return this.emitter.on(event, listener)
   }
 
-  type (type, listener, opts = {}) {
+  type(type, listener, opts = {}) {
     let event = opts.event || 'add'
     let id = opts.id || ''
     return this.emitter.on(`${event}-${type}-${id}`, listener)
   }
 
-  async add (action, meta = {}) {
+  async add(action, meta = {}) {
     if (typeof action.type === 'undefined') {
       throw new Error('Expected "type" in action')
     }
@@ -116,7 +116,7 @@ export class Log {
     }
   }
 
-  generateId () {
+  generateId() {
     let now = Date.now()
     if (now <= this.lastTime) {
       now = this.lastTime
@@ -128,7 +128,7 @@ export class Log {
     return now + ' ' + this.nodeId + ' ' + this.sequence
   }
 
-  each (opts, callback) {
+  each(opts, callback) {
     if (!callback) {
       callback = opts
       opts = { order: 'created' }
@@ -136,7 +136,7 @@ export class Log {
 
     let store = this.store
     return new Promise(resolve => {
-      async function nextPage (get) {
+      async function nextPage(get) {
         let page = await get()
         let result
         for (let i = page.entries.length - 1; i >= 0; i--) {
@@ -156,7 +156,7 @@ export class Log {
     })
   }
 
-  async changeMeta (id, diff) {
+  async changeMeta(id, diff) {
     for (let k in diff) {
       if (
         k === 'id' ||
@@ -181,13 +181,13 @@ export class Log {
     }
   }
 
-  removeReason (reason, criteria = {}) {
+  removeReason(reason, criteria = {}) {
     return this.store.removeReason(reason, criteria, (action, meta) => {
       actionEvents(this.emitter, 'clean', action, meta)
     })
   }
 
-  byId (id) {
+  byId(id) {
     return this.store.byId(id)
   }
 }
